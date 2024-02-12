@@ -3,7 +3,8 @@ import {
     DELETE_CLIENTS,
     SHOW_CLIENTS_MESSAGE,
     HIDDEN_CLIENTS_MESSAGE,
-    SET_CLIENTS_LOADING
+    SET_CLIENTS_LOADING,
+    CHANGE_CLIENT
 } from "../constants/Clients"
 
 const initState = {
@@ -35,6 +36,14 @@ const clients = (state = initState, action) => {
         case SET_CLIENTS_LOADING:
             return {
                 ...state, loading: action.loading
+            }
+        case CHANGE_CLIENT:
+            return {
+                ...state,
+                clients: state.clients.map(client => client.id === action.changedClient.id
+                    ? action.changedClient
+                    : client)
+                , loading: false
             }
         default:
             return state

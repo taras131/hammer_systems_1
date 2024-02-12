@@ -3,7 +3,7 @@ import {
     SET_CLIENTS,
     HIDDEN_CLIENTS_MESSAGE,
     SHOW_CLIENTS_MESSAGE,
-    FETCH_CLIENTS, SET_CLIENTS_LOADING
+    FETCH_CLIENTS, SET_CLIENTS_LOADING, CHANGE_CLIENT
 } from "../constants/Clients";
 
 
@@ -44,5 +44,12 @@ export const setClientsLoading = (loading) => {
     return {
         type: SET_CLIENTS_LOADING,
         loading
+    }
+}
+
+export const changeClient = (changedClient) => {
+    return {
+        type: CHANGE_CLIENT,
+        changedClient
     }
 }

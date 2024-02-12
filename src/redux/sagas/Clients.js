@@ -13,7 +13,6 @@ export function* getClients() {
         yield put(setClientsLoading(true));
         try {
             const response = yield call(fetchClientsApi);
-            console.log(response.data)
             if (response.data) {
                 yield put(setClients(response.data));
             }

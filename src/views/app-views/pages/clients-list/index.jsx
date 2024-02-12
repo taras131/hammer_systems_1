@@ -1,48 +1,49 @@
 import React, {useState, useEffect} from 'react';
-import {Card, Table, Tag, Tooltip, message, Button} from 'antd';
+import {Card, Table, Tooltip, message, Button} from 'antd';
 import {EyeOutlined, DeleteOutlined} from '@ant-design/icons';
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import {useSelector, useDispatch} from "react-redux";
 import UserView from "./UserView";
-import moment from 'moment';
 import {deleteClients, fetchClients} from "../../../../redux/actions/Clients";
 import Loading from "../../../../components/shared-components/Loading";
+import {Link} from "react-router-dom";
+import {getAllClients, getClientsIsLoading} from "../../../../redux/selectors/Clients";
 
 const UserList = () => {
-    const clients = useSelector(state => state.clients.clients)
-    const isLoading = useSelector(state => state.clients.loading)
-
     const dispatch = useDispatch()
+    const clients = useSelector(state => getAllClients(state))
+    const isLoading = useSelector(state => getClientsIsLoading(state))
     const [userProfileVisible, setUserProfileVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
-
     const deleteUser = clientId => {
         dispatch(deleteClients(clientId))
         message.success({content: `Deleted user ${clientId}`, duration: 2});
     }
-
     const showUserProfile = userInfo => {
         setUserProfileVisible(true);
         setSelectedUser(userInfo);
     };
-
     const closeUserProfile = () => {
         setUserProfileVisible(false);
         setSelectedUser(null);
     }
 
     useEffect(() => {
-        dispatch(fetchClients())
+        if(!clients.length){
+            dispatch(fetchClients())
+        }
     }, [])
-
+    if (isLoading) return (<Loading/>)
     const tableColumns = [
         {
             title: 'User',
             dataIndex: 'name',
             render: (_, record) => (
-                <div className="d-flex">
-                    <AvatarStatus src={record.img} name={record.name} subTitle={record.email}/>
-                </div>
+                <Link to={`profile_edit/${record.id}`}>
+                    <div className="d-flex">
+                        <AvatarStatus src={record.img} name={record.name} subTitle={record.email}/>
+                    </div>
+                </Link>
             ),
             sorter: {
                 compare: (a, b) => {
@@ -51,30 +52,54 @@ const UserList = () => {
                     return a > b ? -1 : b > a ? 1 : 0;
                 },
             },
+
         },
         {
-            title: 'Role',
-            dataIndex: 'role',
-            sorter: {
-                compare: (a, b) => a.role.length - b.role.length,
+            title: 'Company',
+            dataIndex: 'company',
+            render: company => (
+                <span>{company.name}</span>
+            ),
+            sorter: (a, b) => {
+                a = a.company.name.toLowerCase();
+                b = b.company.name.toLowerCase();
+                return a > b ? -1 : b > a ? 1 : 0;
             },
         },
         {
-            title: 'Last online',
-            dataIndex: 'lastOnline',
-            render: date => (
-                <span>{moment.unix(date).format("MM/DD/YYYY")} </span>
+            title: 'City',
+            dataIndex: 'address',
+            render: address => (
+                <span>{address.city}</span>
             ),
-            sorter: (a, b) => moment(a.lastOnline).unix() - moment(b.lastOnline).unix()
+            sorter: (a, b) => {
+                a = a.address.city.toLowerCase();
+                b = b.address.city.toLowerCase();
+                return a > b ? -1 : b > a ? 1 : 0;
+            },
         },
         {
-            title: 'Status',
-            dataIndex: 'status',
-            render: status => (
-                <Tag className="text-capitalize" color={status === 'active' ? 'cyan' : 'red'}>{status}</Tag>
+            title: 'Username',
+            dataIndex: 'username',
+            render: username => (
+                <span>{username}</span>
             ),
-            sorter: {
-                compare: (a, b) => a.status.length - b.status.length,
+            sorter: (a, b) => {
+                a = a.username.toLowerCase();
+                b = b.username.toLowerCase();
+                return a > b ? -1 : b > a ? 1 : 0;
+            },
+        },
+        {
+            title: 'Website',
+            dataIndex: 'website',
+            render: website => (
+                <span>{website}</span>
+            ),
+            sorter: (a, b) => {
+                a = a.website.toLowerCase();
+                b = b.website.toLowerCase();
+                return a > b ? -1 : b > a ? 1 : 0;
             },
         },
         {
@@ -97,7 +122,6 @@ const UserList = () => {
             )
         }
     ];
-    if(isLoading) return (<Loading/>)
     return (
         <Card bodyStyle={{'padding': '0px'}}>
             <Table columns={tableColumns} dataSource={clients} rowKey='id'/>

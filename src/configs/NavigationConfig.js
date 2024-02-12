@@ -2,9 +2,6 @@ import {
     DashboardOutlined,
     AppstoreOutlined,
     AntDesignOutlined,
-    SafetyOutlined,
-    StopOutlined,
-    PlusCircleOutlined,
     ShoppingCartOutlined,
     UserOutlined,
     PictureOutlined,
@@ -18,7 +15,7 @@ import {
     FileTextOutlined,
 } from '@ant-design/icons';
 
-import {APP_PREFIX_PATH, AUTH_PREFIX_PATH} from 'configs/AppConfig'
+import {APP_PREFIX_PATH} from 'configs/AppConfig'
 
 const mainNavTree = [{
     key: 'main',

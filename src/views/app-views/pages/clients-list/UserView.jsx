@@ -1,5 +1,5 @@
 import React from 'react';
-import {Avatar, Drawer, Divider} from 'antd';
+import {Drawer, Divider} from 'antd';
 import {
     MobileOutlined,
     MailOutlined,

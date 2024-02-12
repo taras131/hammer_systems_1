@@ -32,7 +32,7 @@ const UserList = () => {
         if(!clients.length){
             dispatch(fetchClients())
         }
-    }, [])
+    }, [dispatch, clients])
     if (isLoading) return (<Loading/>)
     const tableColumns = [
         {
@@ -114,7 +114,6 @@ const UserList = () => {
                     </Tooltip>
                     <Tooltip title="Delete">
                         <Button danger icon={<DeleteOutlined/>} onClick={() => {
-                            console.log(elm.id)
                             deleteUser(elm.id)
                         }} size="small"/>
                     </Tooltip>

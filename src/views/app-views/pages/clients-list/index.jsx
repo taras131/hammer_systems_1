@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Card, Table, Tag, Tooltip, message, Button} from 'antd';
 import {EyeOutlined, DeleteOutlined} from '@ant-design/icons';
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import {useSelector, useDispatch} from "react-redux";
 import UserView from "./UserView";
 import moment from 'moment';
-import {deleteClients} from "../../../../redux/actions/Clients";
+import {deleteClients, fetchClients} from "../../../../redux/actions/Clients";
+import Loading from "../../../../components/shared-components/Loading";
 
 const UserList = () => {
     const clients = useSelector(state => state.clients.clients)
+    const isLoading = useSelector(state => state.clients.loading)
+
     const dispatch = useDispatch()
     const [userProfileVisible, setUserProfileVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -27,6 +30,10 @@ const UserList = () => {
         setUserProfileVisible(false);
         setSelectedUser(null);
     }
+
+    useEffect(() => {
+        dispatch(fetchClients())
+    }, [])
 
     const tableColumns = [
         {
@@ -90,6 +97,7 @@ const UserList = () => {
             )
         }
     ];
+    if(isLoading) return (<Loading/>)
     return (
         <Card bodyStyle={{'padding': '0px'}}>
             <Table columns={tableColumns} dataSource={clients} rowKey='id'/>

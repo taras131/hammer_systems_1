@@ -1,11 +1,16 @@
-import {SET_CLIENTS, DELETE_CLIENTS} from "../constants/Clients"
-import userData from "../../assets/data/user-list.data.json"
+import {
+    SET_CLIENTS,
+    DELETE_CLIENTS,
+    SHOW_CLIENTS_MESSAGE,
+    HIDDEN_CLIENTS_MESSAGE,
+    SET_CLIENTS_LOADING
+} from "../constants/Clients"
 
 const initState = {
-    loading: false,
+    loading: true,
     message: '',
     showMessage: false,
-    clients: userData,
+    clients: [],
 }
 
 const clients = (state = initState, action) => {
@@ -18,6 +23,18 @@ const clients = (state = initState, action) => {
         case DELETE_CLIENTS:
             return {
                 ...state, clients: state.clients.filter(elm => elm.id !== action.clientId)
+            }
+        case SHOW_CLIENTS_MESSAGE:
+            return {
+                ...state, message: action.message, showMessage: true
+            }
+        case HIDDEN_CLIENTS_MESSAGE:
+            return {
+                ...state, message: "", showMessage: false
+            }
+        case SET_CLIENTS_LOADING:
+            return {
+                ...state, loading: action.loading
             }
         default:
             return state

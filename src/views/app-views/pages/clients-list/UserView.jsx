@@ -13,7 +13,6 @@ import {
 } from '@ant-design/icons';
 
 const UserView = ({data, visible, close}) => {
-
     return (
         <Drawer
             width={300}

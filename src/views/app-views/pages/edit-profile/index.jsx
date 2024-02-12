@@ -15,6 +15,7 @@ const EditProfile = () => {
     const history = useHistory();
     const profile = useSelector(state => getClientById(state, +id))
     const isLoading = useSelector(state => getClientsIsLoading(state))
+    const getRules = (name) => ([{required: true, message: `Please input ${name}`}])
     const onFinish = (values) => {
         dispatch(setClientsLoading(true))
         setTimeout(() => {
@@ -40,8 +41,6 @@ const EditProfile = () => {
             }))
             history.push('/app/pages/clients-list')
         }, 1000)
-
-
     }
     const onFinishFailed = () => {
         alert("Не все поля заполнены")
@@ -74,156 +73,48 @@ const EditProfile = () => {
                     }
                 }
                 onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-            >
+                onFinishFailed={onFinishFailed}>
                 <Row>
                     <Col xs={24} sm={24} md={24} lg={16}>
                         <Row gutter={ROW_GUTTER}>
                             <Col xs={24} sm={24} md={12}>
-                                <Form.Item
-                                    label="Name"
-                                    name="name"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input name!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="Name" name="name" rules={getRules("Name")}>
                                     <Input/>
                                 </Form.Item>
-                                <Form.Item
-                                    label="E-mail"
-                                    name="email"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input email!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="E-mail" name="email" rules={getRules("E-mail")}>
                                     <Input/>
                                 </Form.Item>
-                                <Form.Item
-                                    label="Website"
-                                    name="website"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input website!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="Website" name="website" rules={getRules("Website")}>
                                     <Input/>
                                 </Form.Item>
-                                <Form.Item
-                                    label="Phone"
-                                    name="phone"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input website!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="Phone" name="phone" rules={getRules("Phone")}>
                                     <Input/>
                                 </Form.Item>
-                                <Form.Item
-                                    label="Username"
-                                    name="username"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input Username!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="Username" name="username" rules={getRules("Username")}>
                                     <Input/>
                                 </Form.Item>
-                                <Form.Item
-                                    label="Company Name"
-                                    name="companyname"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input Company Name!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="Company Name" name="companyname" rules={getRules("Company Name")}>
                                     <Input/>
                                 </Form.Item>
-                                <Form.Item
-                                    label="Company CatchPhrase"
-                                    name="catchPhrase"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input Company CatchPhrase!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="Company CatchPhrase" name="catchPhrase"
+                                           rules={getRules("Company CatchPhrase")}>
                                     <Input/>
                                 </Form.Item>
-                                <Form.Item
-                                    label="Company Bs"
-                                    name="bs"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input Company Bs!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="Company Bs" name="bs" rules={getRules("Company Bs")}>
                                     <Input/>
                                 </Form.Item>
                             </Col>
                             <Col>
-                                <Form.Item
-                                    label="City"
-                                    name="city"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input city!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="City" name="city" rules={getRules("City")}>
                                     <Input/>
                                 </Form.Item>
-                                <Form.Item
-                                    label="Street"
-                                    name="street"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input street!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="Street" name="street" rules={getRules("Street")}>
                                     <Input/>
                                 </Form.Item>
-                                <Form.Item
-                                    label="Suite"
-                                    name="suite"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input suite!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="Suite" name="suite" rules={getRules("Suite")}>
                                     <Input/>
                                 </Form.Item>
-                                <Form.Item
-                                    label="Zipcode"
-                                    name="zipcode"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input zipcode!',
-                                        },
-                                    ]}
-                                >
+                                <Form.Item label="Zipcode" name="zipcode" rules={getRules("Zipcode")}>
                                     <Input/>
                                 </Form.Item>
                             </Col>

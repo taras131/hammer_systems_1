@@ -8,6 +8,7 @@ const Pages = ({match}) => (
             <Redirect exact from={`${match.url}`} to={`${match.url}/clients-list`}/>
             <Route path={`${match.url}/clients-list`} component={lazy(() => import(`./clients-list`))}/>
             <Route path={`${match.url}/profile_edit/:id`} component={lazy(() => import(`./edit-profile`))}/>
+            <Route path={`${match.url}/planner`} component={lazy(() => import(`./planner`))}/>
         </Switch>
     </Suspense>
 );

@@ -13,6 +13,7 @@ import {
     MobileOutlined,
     ShoppingOutlined,
     FileTextOutlined,
+    LayoutOutlined,
 } from '@ant-design/icons';
 
 import {APP_PREFIX_PATH} from 'configs/AppConfig'
@@ -29,6 +30,14 @@ const mainNavTree = [{
             path: `${APP_PREFIX_PATH}/pages/dashboards/`,
             title: 'sidenav.main.dashboard',
             icon: DashboardOutlined,
+            breadcrumb: false,
+            submenu: []
+        },
+        {
+            key: 'planner-default',
+            path: `${APP_PREFIX_PATH}/pages/planner`,
+            title: 'sidenav.main.planner',
+            icon: LayoutOutlined,
             breadcrumb: false,
             submenu: []
         },

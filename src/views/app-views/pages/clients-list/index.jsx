@@ -27,9 +27,9 @@ const UserList = () => {
         setUserProfileVisible(false);
         setSelectedUser(null);
     }
-
     useEffect(() => {
-        if(!clients.length){
+        //проверка для того , чтобы можно было увидеть изменения данных пользователя, сделанные на странице edit-profile
+        if (!clients.length) {
             dispatch(fetchClients())
         }
     }, [dispatch, clients])
@@ -41,7 +41,7 @@ const UserList = () => {
             render: (_, record) => (
                 <Link to={`profile_edit/${record.id}`}>
                     <div className="d-flex">
-                        <AvatarStatus src={record.img} name={record.name} subTitle={record.email}/>
+                        <AvatarStatus src={""} name={record.name} subTitle={record.email}/>
                     </div>
                 </Link>
             ),

@@ -1658,7 +1658,7 @@ id,name,year,unemployment_rate
 31007,"Banner County, NE",2017,3.6
 31009,"Blaine County, NE",2017,4.2
 31011,"Boone County, NE",2017,2.4
-31013,"Box Butte County, NE",2017,3.2
+31013,"DraggableElement Butte County, NE",2017,3.2
 31015,"Boyd County, NE",2017,3.2
 31017,"Brown County, NE",2017,3.1
 31019,"Buffalo County, NE",2017,2.4
@@ -2776,7 +2776,7 @@ id,name,year,unemployment_rate
 48505,"Zapata County, TX",2017,7.4
 48507,"Zavala County, TX",2017,11.2
 49001,"Beaver County, UT",2017,4.1
-49003,"Box Elder County, UT",2017,3.3
+49003,"DraggableElement Elder County, UT",2017,3.3
 49005,"Cache County, UT",2017,2.8
 49007,"Carbon County, UT",2017,5.1
 49009,"Daggett County, UT",2017,4.9

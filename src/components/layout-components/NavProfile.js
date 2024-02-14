@@ -52,7 +52,7 @@ export const NavProfile = ({signOut}) => {
         <Menu>
           {menuItem.map((el, i) => {
             return (
-              <Menu.Item key={i}>
+              <Menu.Item key={el.title}>
                 <a href={el.path}>
                   <Icon className="mr-3" type={el.icon} />
                   <span className="font-weight-normal">{el.title}</span>

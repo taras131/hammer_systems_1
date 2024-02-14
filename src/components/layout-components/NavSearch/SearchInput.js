@@ -46,7 +46,7 @@ const searchResult = () => optionList.map((item) => {
 	return {
 		value: item.path,
 		label: (
-			<Link to={item.path}>
+			<Link to={item.path} key={item.path}>
 				<div className="search-list-item">
 					<div className="icon">
 						{getCategoryIcon(category)}

@@ -2,7 +2,7 @@
   "name": "emilus",
   "version": "2.0.1",
   "private": true,
-  "homepage": "https://taras131.github.io/hammer_systems_1",
+
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

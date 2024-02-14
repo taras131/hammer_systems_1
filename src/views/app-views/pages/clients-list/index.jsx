@@ -28,11 +28,8 @@ const UserList = () => {
         setSelectedUser(null);
     }
     useEffect(() => {
-        //проверка для того , чтобы можно было увидеть изменения данных пользователя, сделанные на странице edit-profile
-        if (!clients.length) {
-            dispatch(fetchClients())
-        }
-    }, [dispatch, clients])
+        dispatch(fetchClients())
+    }, [dispatch])
     if (isLoading) return (<Loading/>)
     const tableColumns = [
         {

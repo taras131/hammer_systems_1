@@ -1,23 +1,20 @@
-import { auth, googleAuthProvider, facebookAuthProvider } from 'auth/FirebaseAuth';
+import {addDoc, collection, doc, updateDoc, deleteDoc} from "firebase/firestore";
+import {db} from "../configs/FirebaseConfig";
+import {PLAN_COLLECTION_NAME} from "../constants/ApiConstant";
 
 const FirebaseService = {}
 
-FirebaseService.signInEmailRequest = async (email, password) =>
-	await auth.signInWithEmailAndPassword(email, password).then(user => user).catch(err => err);
+FirebaseService.fetchAddPlan = async (data) => {
+    await addDoc(collection(db, PLAN_COLLECTION_NAME), {
+        title: data.newPlan.title,
+        elements: data.newPlan.elements
+    });
+}
+FirebaseService.fetchUpdatePlan = async ({updatedPlan, id}) => {
+    await updateDoc(doc(db, PLAN_COLLECTION_NAME, id), updatedPlan);
+}
+FirebaseService.fetchRemovePlan = async (data) => {
+    await deleteDoc(doc(db, PLAN_COLLECTION_NAME, data.id));
+}
 
-FirebaseService.signInEmailRequest = async (email, password) =>
-  await auth.signInWithEmailAndPassword(email, password).then(user => user).catch(err => err);
-		
-FirebaseService.signOutRequest = async () =>
-	await auth.signOut().then(user => user).catch(err => err);
-
-FirebaseService.signInGoogleRequest = async () =>
-  await auth.signInWithPopup(googleAuthProvider).then(user => user).catch(err => err);
-
-FirebaseService.signInFacebookRequest = async () =>
-  await auth.signInWithPopup(facebookAuthProvider).then(user => user).catch(err => err);
-
-FirebaseService.signUpEmailRequest = async (email, password) =>
-	await auth.createUserWithEmailAndPassword(email, password).then(user => user).catch(err => err);	
-	
 export default FirebaseService

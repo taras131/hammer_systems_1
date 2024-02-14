@@ -3,9 +3,14 @@ import {Form, Button, Input, Row, Col} from 'antd';
 import {ROW_GUTTER} from 'constants/ThemeConstant';
 import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import {getClientById, getClientsIsLoading} from "../../../../redux/selectors/Clients";
+import {getClientsIsLoading, getEditionClient} from "../../../../redux/selectors/Clients";
 import Loading from "../../../../components/shared-components/Loading";
-import {changeClient, fetchClients, setClientsLoading} from "../../../../redux/actions/Clients";
+import {
+    changeClient,
+    fetchClientByID,
+    setClientsLoading,
+    setEditionClient
+} from "../../../../redux/actions/Clients";
 import {useHistory} from 'react-router-dom';
 import {Card} from 'antd';
 
@@ -13,7 +18,7 @@ const EditProfile = () => {
     let {id} = useParams();
     const dispatch = useDispatch()
     const history = useHistory();
-    const profile = useSelector(state => getClientById(state, +id))
+    const profile = useSelector(state => getEditionClient(state, +id))
     const isLoading = useSelector(state => getClientsIsLoading(state))
     const getRules = (name) => ([{required: true, message: `Please input ${name}`}])
     const onFinish = (values) => {
@@ -39,6 +44,7 @@ const EditProfile = () => {
                     bs: values.bs
                 }
             }))
+            dispatch(setEditionClient({}))
             history.push('/app/pages/clients-list')
         }, 1000)
     }
@@ -46,9 +52,10 @@ const EditProfile = () => {
         alert("Не все поля заполнены")
     }
     useEffect(() => {
-        if (!profile) dispatch(fetchClients())
-    })
-    if (isLoading || !profile) return (<Loading/>)
+        dispatch(fetchClientByID(id))
+    }, [dispatch, id])
+    if (isLoading) return (<Loading/>)
+    if (!profile.name) return (<p>{`Не удаётся найти клиента с id: ${id} , Попробуйте позже`}</p>)
     return (
         <Card>
             <Form

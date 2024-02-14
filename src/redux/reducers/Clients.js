@@ -4,7 +4,8 @@ import {
     SHOW_CLIENTS_MESSAGE,
     HIDDEN_CLIENTS_MESSAGE,
     SET_CLIENTS_LOADING,
-    CHANGE_CLIENT
+    CHANGE_CLIENT,
+    SET_EDITION_CLIENT
 } from "../constants/Clients"
 
 const initState = {
@@ -12,6 +13,7 @@ const initState = {
     message: '',
     showMessage: false,
     clients: [],
+    editionClient: {}
 }
 
 const clients = (state = initState, action) => {
@@ -45,6 +47,8 @@ const clients = (state = initState, action) => {
                     : client)
                 , loading: false
             }
+        case SET_EDITION_CLIENT:
+            return {...state, editionClient: action.client}
         default:
             return state
     }

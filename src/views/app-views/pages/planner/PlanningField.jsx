@@ -1,19 +1,34 @@
-import {useCallback, useState, useRef} from 'react'
+import {useRef} from 'react'
 import {useDrop} from 'react-dnd'
-import DraggableElement from './DraggableElement'
+import Element from './Element'
 import {ItemTypes} from './ItemTypes.js'
 import {useDispatch, useSelector} from "react-redux";
 import {getActiveElements} from "../../../../redux/selectors/Planner";
-import {addActiveElement, moveElement} from "../../../../redux/actions/Planner";
+import {
+    addActiveElement,
+    moveElement,
+    removeActivePlanElement,
+} from "../../../../redux/actions/Planner";
+import UploadedPlans from "./UploadedPlans";
 
 const style = {
-    height: "400px", width: "100%", backgroundColor: "green", position: 'relative',
+    height: "400px",
+    width: "100%",
+    position: 'relative',
+    border: "1px solid green",
+    backgroundColor: "white",
+    backgroundImage:
+        "linear-gradient(to right, whitesmoke 1px, transparent 1px),linear-gradient(to bottom, whitesmoke 1px, transparent 1px)",
+    backgroundSize: " 20px 20px"
 }
 
 const PlanningField = ({hideSourceOnDrag}) => {
     const dispatch = useDispatch()
     const containerRef = useRef(null);
     const activeElements = useSelector(state => getActiveElements(state))
+    const handleActiveElementRemove = (id) => () => {
+        dispatch(removeActivePlanElement(id))
+    }
     const calculationCoordinates = (x, y, elementHeight, elementWidth) => {
         const res = {finalX: x, finalY: y}
         const width = containerRef.current.offsetWidth;
@@ -57,17 +72,22 @@ const PlanningField = ({hideSourceOnDrag}) => {
     )
     const activeElementsList = Object.keys(activeElements).map((key) => {
         return (
-            <DraggableElement
-                key={key}
-                {...activeElements[key]}
+            <Element
+                key={key} {...activeElements[key]}
+                handleRemoveClick={handleActiveElementRemove(activeElements[key].id)}
             />
         )
     })
     return (
-        <div ref={containerRef}>
+        <div ref={containerRef} style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 350px',
+            gap: "20px",
+        }}>
             <div ref={drop} style={style}>
                 {activeElementsList}
             </div>
+            <UploadedPlans/>
         </div>
     );
 };

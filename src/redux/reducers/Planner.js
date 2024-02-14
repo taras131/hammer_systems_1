@@ -1,16 +1,17 @@
-import {ADD_ACTIVE_ELEMENT, MOVE_ACTIVE_ELEMENT, ROTATE_ELEMENT} from "../constants/Planner";
-import table_1 from "../../assets/furniture/table_1.webp"
-import table_2 from "../../assets/furniture/table_2.jpg"
+import {
+    ADD_ACTIVE_ELEMENT, HIDDEN_PLANNER_MESSAGE,
+    MOVE_ACTIVE_ELEMENT, REMOVE_PLAN_ELEMENT,
+    ROTATE_ELEMENT,
+    SET_ACTIVE_ELEMENTS, SET_PLANNER_LOADING,
+    SHOW_PLANNER_MESSAGE
+} from "../constants/Planner";
+import {startElements} from "../../constants/PlannerConstants";
 
 const initState = {
-    loading: true,
     message: '',
-    startElements: [
-        {id: 0, top: 0, left: 0, title: 'Стол № 1', width: 90, height: 90, color: "blue", isRotate: false, img: table_1},
-        {id: 1, top: 0, left: 0, title: 'Стол № 2', width: 135, height: 90, color: "red", isRotate: false, img: table_2},
-        {id: 2, top: 0, left: 0, title: 'Лавка № 1', width: 20, height: 70, color: "black", isRotate: false},
-        {id: 5, top: 0, left: 0, title: 'Лавка № 2', width: 20, height: 90, color: "black", isRotate: false},
-    ],
+    showMessage: false,
+    loading: false,
+    startElements: startElements,
     activeElements: {}
 }
 
@@ -39,17 +40,33 @@ const planner = (state = initState, action) => {
                     }
                 }
             }
+        case SET_ACTIVE_ELEMENTS:
+            return {...state, activeElements: action.payload}
         case ROTATE_ELEMENT:
-
+            const newHeight = state.activeElements[action.payload].width
+            const newWidth = state.activeElements[action.payload].height
             return {
                 ...state,
-                activeElements: {...state.activeElements,
+                activeElements: {
+                    ...state.activeElements,
                     [action.payload]: {
                         ...state.activeElements[action.payload],
                         isRotate: !state.activeElements[action.payload].isRotate
+                        , height: newHeight
+                        , width: newWidth
                     }
                 }
             }
+        case SHOW_PLANNER_MESSAGE:
+            return {...state, message: action.message, showMessage: true}
+        case HIDDEN_PLANNER_MESSAGE:
+            return {...state, message: "", showMessage: false}
+        case SET_PLANNER_LOADING:
+            return {...state, loading: action.loading}
+        case REMOVE_PLAN_ELEMENT:
+            const newActiveElements = {...state.activeElements}
+            delete newActiveElements[action.id];
+            return {...state, activeElements: newActiveElements}
         default:
             return state
     }

@@ -7,3 +7,10 @@ export const getStartElementById = (state,id) => {
 export const getActiveElements = (state) => {
     return state.planner.activeElements
 }
+export const getPlannerLoading = (state) => {
+    return state.planner.loading
+}
+
+export const getPlannerMessage = (state) => {
+    return state.planner.message
+}

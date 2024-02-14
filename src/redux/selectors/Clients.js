@@ -7,3 +7,6 @@ export const getAllClients = (state) => {
 export const getClientsIsLoading = (state) => {
     return state.clients.loading;
 }
+export const getEditionClient = (state) => {
+    return state.clients.editionClient;
+}
